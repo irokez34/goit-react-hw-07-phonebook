@@ -3,14 +3,14 @@ import './contact-list.css';
 import { removeContact } from 'store/ContactsToolKit/createSliceContactList';
 import NotificationMessage from 'components/notification-message/NotificationMessage';
 const ContactList = () => {
-  const { phoneBook } = useSelector(state => state.contacts);
+  const { phoneBook: {items} } = useSelector(state => state.contacts);
   const { filter } = useSelector(state => state.filter);
   const dispatch = useDispatch();
 
   const deleteContact = id => {
     dispatch(removeContact(id));
   };
-  const filteredContacts = phoneBook.filter(contact =>
+  const filteredContacts = items.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 

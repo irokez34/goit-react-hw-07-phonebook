@@ -13,6 +13,15 @@ export async function getContactsApi() {
   }
 }
 
+// export async function addNewContact(body) {
+//   const { data } = await axios.post('contact', body);
+//   return data;
+// }
+export const addNewContactApi = async body => {
+  const { data } = await axios.post('contact/add', body);
+  return data;
+};
+
 // export async function addNewContact() {
 //   try {
 //     const response = await axios({

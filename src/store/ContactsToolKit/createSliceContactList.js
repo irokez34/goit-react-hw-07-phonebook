@@ -16,7 +16,7 @@ const handleRejected = (state, { payload }) => {
   state.phoneBook.isLoading = false;
   state.phoneBook.error = payload.message;
 };
-const handleFulfilled = (state, { payload }) => {
+const handleFulfilled = state => {
   state.phoneBook.isLoading = false;
 };
 const phoneBookSlice = createSlice({
@@ -35,17 +35,19 @@ const phoneBookSlice = createSlice({
       })
       .addMatcher(({ type }) => {
         type.endsWith('/fulfilled'), handleFulfilled;
-      })
+      });
   },
-    reducers: {
-      addContact: (state, action) => {
-        state.phoneBook.items.push(action.payload);
-      },
-
-      removeContact(state, action) {
-        state.phoneBook.items =  state.phoneBook.items.filter(el => el.id !== action.payload);
-      },
+  reducers: {
+    addContact: (state, action) => {
+      state.phoneBook.items.push(action.payload);
     },
+
+    removeContact(state, action) {
+      state.phoneBook.items = state.phoneBook.items.filter(
+        el => el.id !== action.payload
+      );
+    },
+  },
 });
 
 export const phoneBookReducer = phoneBookSlice.reducer;

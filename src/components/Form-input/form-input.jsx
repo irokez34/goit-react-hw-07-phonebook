@@ -9,7 +9,9 @@ const FormInput = ({ sendContactData }) => {
   const [number, setNumber] = useState('');
 
   const {
-    contacts: { phoneBook },
+    contacts: {
+      phoneBook: { items },
+    },
   } = useSelector(state => state);
 
   const dispatch = useDispatch();
@@ -23,7 +25,7 @@ const FormInput = ({ sendContactData }) => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    const isContact = phoneBook.find(el => el.number === number);
+    const isContact = items.find(el => el.number === number);
     if (isContact) {
       setName('');
       setNumber('');
