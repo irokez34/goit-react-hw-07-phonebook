@@ -1,38 +1,19 @@
-// https://65aa9087081bd82e1d974405.mockapi.io/contacts/:endpoint
 import axios from 'axios';
+axios.defaults.baseURL = 'https://65abd6eafcd1c9dcffc71d90.mockapi.io/contacts';
 
 export async function getContactsApi() {
-  try {
-    const response = await axios.get(
-      'https://65aa9087081bd82e1d974405.mockapi.io/contacts/contacts'
-    );
-    console.log(response.data);
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
+  const response = await axios.get('/contacts');
+  return response.data;
 }
 
-// export async function addNewContact(body) {
-//   const { data } = await axios.post('contact', body);
-//   return data;
-// }
-export const addNewContactApi = async body => {
-  const { data } = await axios.post('contact/add', body);
-  return data;
+export const addNewContactApi = async data => {
+  const response = await axios.post('/contacts', data);
+  console.log(response.data);
+  return response.data;
 };
 
-// export async function addNewContact() {
-//   try {
-//     const response = await axios({
-//       method: 'post',
-//       url: '/user/12345',
-//       data: {
-//         createdAt: '2024-01-18T18:50:59.029Z',
-//         name: 'Cary Braun',
-//         phone: '(766) 211-7821 x349',
-//         id: '1',
-//       },
-//     });
-//   } catch (error) {}
-// }
+export const removeContactApi = async id => {
+  const response = await axios.delete(`/contacts/${id}`);
+  console.log(response.data);
+  return response.data;
+};

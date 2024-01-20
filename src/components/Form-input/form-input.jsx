@@ -1,19 +1,14 @@
 import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
+
 import './form-input.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'store/ContactsToolKit/createSliceContactList';
+import { addNewContactThunk } from 'store/thunk/thunk';
+import { selectContacts } from 'store/Slice/selectors';
 
-const FormInput = ({ sendContactData }) => {
+const FormInput = ({}) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
-  const {
-    contacts: {
-      phoneBook: { items },
-    },
-  } = useSelector(state => state);
-
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
   const handleChange = e => {
     const { value, name } = e.target;
@@ -25,7 +20,7 @@ const FormInput = ({ sendContactData }) => {
   };
   const handleSubmit = e => {
     e.preventDefault();
-    const isContact = items.find(el => el.number === number);
+    const isContact = contacts.find(el => el.number === number);
     if (isContact) {
       setName('');
       setNumber('');
@@ -35,9 +30,8 @@ const FormInput = ({ sendContactData }) => {
     const data = {
       name: name,
       number: number,
-      id: nanoid(),
     };
-    dispatch(addContact(data));
+    dispatch(addNewContactThunk(data));
     setName('');
     setNumber('');
   };
@@ -45,26 +39,28 @@ const FormInput = ({ sendContactData }) => {
     <form onSubmit={handleSubmit}>
       <div className="input-container">
         <div className="input-name">
-          <h3>Name</h3>
           <input
             type="text"
             name="name"
-            className="input"
+            className="input-form"
             value={name}
             onChange={handleChange}
             required
           />
+          <span className="bar"></span>
+          <label>Name</label>
         </div>
         <div className="input-number">
-          <h3>Number</h3>
           <input
             type="tel"
             name="number"
-            className="input"
+            className="input-form"
             value={number}
             onChange={handleChange}
             required
           />
+          <span className="bar"></span>
+          <label>Number</label>
         </div>
         <button className="btn" type="submit">
           Add contact

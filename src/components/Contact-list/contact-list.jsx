@@ -1,20 +1,29 @@
 import { useDispatch, useSelector } from 'react-redux';
 import './contact-list.css';
-import { removeContact } from 'store/ContactsToolKit/createSliceContactList';
 import NotificationMessage from 'components/notification-message/NotificationMessage';
+import { deleteContactThunk, getContactsThunk } from 'store/thunk/thunk';
+import {
+  selectContacts,
+  selectFilter,
+  selectVisibleContacts,
+} from 'store/Slice/selectors';
+import { useEffect } from 'react';
+
 const ContactList = () => {
-  const { phoneBook: {items} } = useSelector(state => state.contacts);
-  const { filter } = useSelector(state => state.filter);
+  const contacts = useSelector(selectContacts);
+  const visibleContacts = useSelector(selectVisibleContacts);
+  const filter = useSelector(selectFilter);
+
   const dispatch = useDispatch();
 
   const deleteContact = id => {
-    dispatch(removeContact(id));
+    dispatch(deleteContactThunk(id));
   };
-  const filteredContacts = items.filter(contact =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  useEffect(() => {
+    dispatch(getContactsThunk());
+  }, [dispatch]);
 
-  const contactlist = filteredContacts.map(({ id, name, number }) => (
+  const contactlist = visibleContacts.map(({ id, name, number }) => (
     <li className="item" key={id}>
       <span>{name}</span>:<span> {number}</span>
       <button type="button" onClick={() => deleteContact(id)}>
@@ -25,7 +34,7 @@ const ContactList = () => {
 
   return (
     <div className="contacts">
-      {filteredContacts.length === 0 ? (
+      {visibleContacts.length === 0 ? (
         <NotificationMessage message={`No contact ${filter}`} />
       ) : (
         <ul>{contactlist}</ul>

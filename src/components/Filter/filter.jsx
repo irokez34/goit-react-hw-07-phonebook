@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { filterContacts } from 'store/ContactsToolKit/createFIlterSlice';
-
-
+import './filter.css';
+import { selectFilter } from 'store/Slice/selectors';
+import { filterContacts } from 'store/Slice/FilterSlice';
 const Filter = () => {
-  const { filter } = useSelector(state => state.filter);
+  const filter = useSelector(selectFilter);
   const dispatch = useDispatch();
 
   const filterContact = ({ target: { value } }) => {
@@ -11,15 +11,14 @@ const Filter = () => {
   };
 
   return (
-    <label className="label">
-      Find contact 
+    <div className="form-group ">
       <input
-        className="input"
+        className="form-field"
         type="text"
         value={filter}
         onChange={filterContact}
       />
-    </label>
+    </div>
   );
 };
 

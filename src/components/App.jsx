@@ -1,23 +1,19 @@
 import FormInput from './Form-input/form-input';
 import ContactList from './Contact-list/contact-list';
 import Filter from './Filter/filter';
-import { getContactsApi } from 'fetch/fetch';
+
+import { Loader } from './Loading/Loader';
+import { Error } from './Error/error';
 
 export const App = () => {
-  getContactsApi();
   return (
-    <div
-      style={{
-        width: '300px',
-        margin: '200px auto',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '20px',
-      }}
-    >
-      <h1>PhoneBook</h1>
+    <div style={{ margin: "0 auto", 
+    width: "500px"}}>
+      <h1 className="title">PhoneBook</h1>
       <FormInput />
-      <h2>Contacts</h2>
+      <Error />
+      <Loader />
+      <h2 className="title">Contacts</h2>
       <Filter />
       <ContactList />
     </div>
