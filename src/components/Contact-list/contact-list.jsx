@@ -2,15 +2,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import './contact-list.css';
 import NotificationMessage from 'components/notification-message/NotificationMessage';
 import { deleteContactThunk, getContactsThunk } from 'store/thunk/thunk';
-import {
-  selectContacts,
-  selectFilter,
-  selectVisibleContacts,
-} from 'store/Slice/selectors';
+import { selectFilter, selectVisibleContacts } from 'store/Slice/selectors';
 import { useEffect } from 'react';
 
 const ContactList = () => {
-  const contacts = useSelector(selectContacts);
   const visibleContacts = useSelector(selectVisibleContacts);
   const filter = useSelector(selectFilter);
 

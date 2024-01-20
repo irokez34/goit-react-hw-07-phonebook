@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { useSelector } from 'react-redux';
+
 
 export const selectContacts = state => state.contacts.phoneBook.items;
 export const selectError = state => state.contacts.phoneBook.error;

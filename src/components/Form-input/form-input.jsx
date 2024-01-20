@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addNewContactThunk } from 'store/thunk/thunk';
 import { selectContacts } from 'store/Slice/selectors';
 
-const FormInput = ({}) => {
+const FormInput = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const contacts = useSelector(selectContacts);
